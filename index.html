@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Standard Bakers, Mathura — Fresh cakes, pastries and snacks. Order via WhatsApp or Swiggy. Two outlets: Tantura & Balaji Puram.">
+  <meta name="theme-color" content="#C95E1A">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Standard Bakers, Mathura">
+  <meta property="og:description" content="Fresh cakes, pastries & snacks daily. Order via WhatsApp or Swiggy.">
+  <meta property="og:type" content="website">
+
+  <title>Standard Bakers — Fresh Cakes & Pastries, Mathura</title>
+
+  <!-- Preload critical font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon inline SVG -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>🎂</text></svg>">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar" role="banner">
+  <div class="topbar-left">
+    <div class="topbar-logo">Standard Bakers</div>
+    <div class="outlet-wrapper">
+      <button id="outlet-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select outlet">
+        <span id="current-outlet">Tantura ▾</span>
+      </button>
+      <div id="outlet-drop" role="listbox" aria-label="Select outlet"></div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button id="cart-btn" class="topbar-call" aria-label="View enquiry list" style="background:rgba(255,255,255,0.15);position:relative;padding:6px 12px;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M1.5 1.5h2l1.8 7.5h7.2l1.5-5H4.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="7" cy="13" r="1" fill="#fff"/>
+        <circle cx="12" cy="13" r="1" fill="#fff"/>
+      </svg>
+      <span id="cart-badge" role="status" aria-live="polite"></span>
+    </button>
+    <button class="topbar-call" onclick="callNow()" aria-label="Call Standard Bakers now">Call Now</button>
+  </div>
+</header>
+
+<!-- ══ SEARCH ══ -->
+<div class="search-wrap">
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <circle cx="7.5" cy="7.5" r="5" stroke="#9A7A65" stroke-width="1.5"/>
+      <path d="M11.5 11.5L15 15" stroke="#9A7A65" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input
+      id="search-input"
+      type="search"
+      placeholder="Search cakes, pastries, snacks..."
+      aria-label="Search products"
+      autocomplete="off"
+      inputmode="search"
+    >
+  </div>
+</div>
+
+<main id="main-content">
+
+  <!-- ══ OFFER BANNER ══ -->
+  <div id="offer-banner" role="note" aria-label="Current offer">
+    <span class="offer-text"></span>
+    <span class="offer-badge">Today</span>
+  </div>
+
+  <!-- ══ CATEGORIES ══ -->
+  <nav class="cats-wrap" id="cat-row" aria-label="Product categories"></nav>
+
+  <!-- ══ PRICE FILTERS ══ -->
+  <div class="price-filter-wrap" id="price-filter-row" role="group" aria-label="Filter by price"></div>
+
+  <!-- ══ POPULAR TODAY ══ -->
+  <div class="section-head">
+    <h2 class="section-title">Popular today</h2>
+    <button class="section-link" onclick="document.getElementById('search-input').focus()" aria-label="Search all products">See all</button>
+  </div>
+
+  <div id="product-grid" role="list" aria-label="Products"></div>
+
+  <div id="no-results" role="status" aria-live="polite">
+    No products found.<br>
+    <button class="no-results-wa" onclick="openWhatsApp('general')" aria-label="Ask on WhatsApp about product availability">
+      Ask us on WhatsApp
+    </button>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ CUSTOM CAKE WHATSAPP ══ -->
+  <section class="wa-block" aria-label="Custom cake orders">
+    <div class="wa-block-text">
+      <div class="wa-block-title">Want a custom cake?</div>
+      <div class="wa-block-sub">Share your idea — we'll make it happen</div>
+    </div>
+    <button class="wa-cta-btn" onclick="openWhatsApp('custom')" aria-label="Order a custom cake via WhatsApp">
+      WhatsApp
+    </button>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ ORDER DELIVERY ══ -->
+  <div class="section-head" style="margin-bottom:0;">
+    <h2 class="section-title">Order delivery</h2>
+  </div>
+  <div class="delivery-row">
+    <button class="delivery-btn swiggy" onclick="openOrderPlatform('swiggy')" aria-label="Order on Swiggy">
+      Order on Swiggy
+    </button>
+    <button class="delivery-btn zomato" onclick="openOrderPlatform('zomato')" aria-label="Order on Zomato">
+      Order on Zomato
+    </button>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ GOOGLE REVIEWS ══ -->
+  <section class="reviews-section" aria-label="Customer reviews">
+    <div class="section-head">
+      <h2 class="section-title">What customers say</h2>
+      <span style="font-size:0.78rem;color:#F59E0B;font-weight:600;">4.3 ★</span>
+    </div>
+    <div class="reviews-scroll" role="list">
+      <div class="review-card" role="listitem">
+        <div class="review-stars" aria-label="5 stars">★★★★★</div>
+        <div class="review-text">"Best cake shop in Mathura! The black forest cake was amazing. Fresh and delicious."</div>
+        <div class="review-author">— Priya S., Mathura</div>
+      </div>
+      <div class="review-card" role="listitem">
+        <div class="review-stars" aria-label="4 stars">★★★★☆</div>
+        <div class="review-text">"Great pastries at very affordable prices. My go-to bakery for daily snacks."</div>
+        <div class="review-author">— Rahul M., Mathura</div>
+      </div>
+      <div class="review-card" role="listitem">
+        <div class="review-stars" aria-label="5 stars">★★★★★</div>
+        <div class="review-text">"Ordered a custom birthday cake. Excellent quality and on-time delivery!"</div>
+        <div class="review-author">— Sunita K., Mathura</div>
+      </div>
+    </div>
+    <div class="review-cta">
+      <a href="https://g.co/kgs/standardbakers" target="_blank" rel="noopener" aria-label="View all reviews on Google">
+        View all 6 reviews on Google ↗
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ OUTLETS ══ -->
+  <section class="outlets-section" aria-label="Our outlets">
+    <div class="section-head">
+      <h2 class="section-title">Our outlets</h2>
+    </div>
+    <div id="outlets-container"></div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer role="contentinfo">
+  <div class="footer-logo">Standard Bakers</div>
+  <div class="footer-tagline">Fresh baked. Daily. Mathura.</div>
+  <div>📍 Tantura &amp; Balaji Puram, Mathura – 281001</div>
+  <div>📞 089239 63286</div>
+  <div>🕐 Open daily: 8:00 AM – 9:00 PM</div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://www.swiggy.com" target="_blank" rel="noopener">Swiggy</a>
+    <a class="footer-link" href="https://www.zomato.com" target="_blank" rel="noopener">Zomato</a>
+    <a class="footer-link" href="https://www.justdial.com" target="_blank" rel="noopener">JustDial</a>
+    <a class="footer-link" href="https://maps.google.com" target="_blank" rel="noopener">Google Maps</a>
+  </div>
+</footer>
+
+<!-- ══ STICKY BOTTOM BAR ══ -->
+<nav class="sticky-bar" role="navigation" aria-label="Quick actions">
+  <button class="sb-btn sb-call" onclick="callNow()" aria-label="Call Standard Bakers">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M3 3.5h4l1.5 4.5-2 1.5A12 12 0 0 0 10 13l1.5-2 4.5 1.5V17a1 1 0 0 1-1 1A15 15 0 0 1 2 4.5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.4" fill="none"/>
+    </svg>
+    Call
+  </button>
+  <button class="sb-btn sb-wa" onclick="openWhatsApp(enquiryList && enquiryList.length ? 'enquiry' : 'general')" aria-label="Order via WhatsApp">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="10" cy="10" r="8" stroke="white" stroke-width="1.4"/>
+      <path d="M7 9c0 3 3 5.5 6 4" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M5.5 15.5l1.5-3" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    WhatsApp
+  </button>
+  <button class="sb-btn sb-order" onclick="openOrderSheet()" aria-label="Order online via Swiggy or Zomato">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <rect x="2" y="5" width="16" height="12" rx="2" stroke="white" stroke-width="1.4"/>
+      <path d="M6 5V4a4 4 0 0 1 8 0v1" stroke="white" stroke-width="1.4"/>
+    </svg>
+    Order
+  </button>
+</nav>
+
+<!-- ══ SHEET OVERLAY ══ -->
+<div id="sheet-overlay" onclick="closeEnquirySheet();closeOrderSheet();" aria-hidden="true"></div>
+
+<!-- ══ ENQUIRY SHEET ══ -->
+<div id="enquiry-sheet" class="bottom-sheet" role="dialog" aria-modal="true" aria-label="Your enquiry list">
+  <div class="sheet-handle" aria-hidden="true"></div>
+  <div class="sheet-title">Your enquiry list</div>
+  <div id="enquiry-content"></div>
+  <div class="sheet-actions">
+    <button class="sheet-wa-btn" onclick="openWhatsApp('enquiry');closeEnquirySheet();" aria-label="Send enquiry via WhatsApp">
+      Send via WhatsApp
+    </button>
+    <button class="sheet-cancel" onclick="closeEnquirySheet()">Close</button>
+  </div>
+</div>
+
+<!-- ══ ORDER SHEET ══ -->
+<div id="order-sheet" class="bottom-sheet" role="dialog" aria-modal="true" aria-label="Choose delivery platform">
+  <div class="sheet-handle" aria-hidden="true"></div>
+  <div class="sheet-title">Order delivery via</div>
+  <div class="order-option" onclick="openPlatform('swiggy')" role="button" tabindex="0" aria-label="Order on Swiggy">
+    <div>
+      <div class="order-option-name" style="color:#C2410C;">Swiggy</div>
+      <div class="order-option-sub">Fast delivery · Track your order</div>
+    </div>
+    <span class="order-option-arrow">›</span>
+  </div>
+  <div class="order-option" onclick="openPlatform('zomato')" role="button" tabindex="0" aria-label="Order on Zomato">
+    <div>
+      <div class="order-option-name" style="color:#9F1239;">Zomato</div>
+      <div class="order-option-sub">Fast delivery · Track your order</div>
+    </div>
+    <span class="order-option-arrow">›</span>
+  </div>
+  <div class="sheet-actions">
+    <button class="sheet-cancel" onclick="closeOrderSheet()">Close</button>
+  </div>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div id="toast" role="status" aria-live="polite">
+  <span id="toast-text"></span>
+</div>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Platform helpers (defined after data.js) -->
+<script>
+  function openOrderPlatform(platform) {
+    const outlet = SITE.outlets.find(o => o.id === (localStorage.getItem('sb_outlet') || 'tantura'));
+    const url = platform === 'swiggy' ? outlet.swiggy : outlet.zomato;
+    window.open(url, '_blank', 'noopener');
+  }
+</script>
+
+</body>
+</html>
